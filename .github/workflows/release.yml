@@ -27,7 +27,8 @@ jobs:
       - name: Run Build and Sign Script
         shell: powershell
         run: |
-          ./build-sign.ps1 -PFX_FILE "codesign.pfx" -PFX_PASS "${{ secrets.PFX_PASSWORD }}"
+          $RawTag = "${{ github.ref_name }}".TrimStart('v')
+          ./build-sign.ps1 -PFX_FILE "codesign.pfx" -PFX_PASS "${{ secrets.PFX_PASSWORD }}" -VERSION "$RawTag"
 
       - name: Create Release
         uses: softprops/action-gh-release@v2

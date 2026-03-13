@@ -1,6 +1,7 @@
 param (
     [string]$PFX_FILE = "codesign.pfx",
-    [string]$PFX_PASS = ""
+    [string]$PFX_PASS = "",
+    [string]$VERSION  = "0.0.0"
 )
 
 Set-Location $PSScriptRoot
@@ -26,7 +27,7 @@ if (Test-Path $EXE) {
 
 Write-Host "--- Step 2: Build NSI ---"
 if (Test-Path $NSI) {
-    & $MAKENSIS $NSI
+    & $MAKENSIS /DVERSION=$VERSION $NSI
 } else {
     Write-Error "NSI_NOT_FOUND at $(Get-Location)"
     exit 1
