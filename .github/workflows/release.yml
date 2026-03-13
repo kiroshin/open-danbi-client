@@ -1,0 +1,38 @@
+name: Release and Sign
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install NSIS
+        run: choco install nsis -y
+
+      - name: Decode PFX
+        shell: powershell
+        run: |
+          $pfx_byte = [System.Convert]::FromBase64String("${{ secrets.PFX_BASE64 }}")
+          [IO.File]::WriteAllBytes("${{ github.workspace }}\codesign.pfx", $pfx_byte)
+
+      - name: Run Build and Sign Script
+        shell: powershell
+        run: |
+          ./build-sign.ps1 -PFX_FILE "codesign.pfx" -PFX_PASS "${{ secrets.PFX_PASSWORD }}"
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: danbi-setup.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

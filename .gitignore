@@ -1,0 +1,20 @@
+#################### Windows ####################
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+*.lnk
+
+#################### macOS ####################
+# General
+.DS_Store
+# Thumbnails
+._*
+
+#################### Disable vscode ####################
+.vscode/
+
+#################### Disable .ideaa  ####################
+.idea/
+
+#################### Disable .temp  ####################
+.temp/
