@@ -14,6 +14,14 @@
 ; -----------------------------------------
 ; NSIS 환경설정
 ; -----------------------------------------
+VIProductVersion "0.0.0.0"
+VIAddVersionKey "FileVersion" "0.0.0.0"
+VIAddVersionKey "ProductVersion" "0.0.0.0"
+VIAddVersionKey "ProductName" "${APP_NAME}"
+VIAddVersionKey "CompanyName" "${PUBLISHER}"
+VIAddVersionKey "FileDescription" "${OUT_FILE}"
+VIAddVersionKey "LegalCopyright" "Copyright © ${PUBLISHER}"
+
 ; --- 임포트(64비트전용) ---
 Unicode true
 !include "x64.nsh"
